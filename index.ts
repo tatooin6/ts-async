@@ -25,19 +25,27 @@ export interface Pokemon {
   }[];
 }
 
-axios
-  .get("https://pokeapi.co/api/v2/pokemon")
-  //.then((data) => data.json())
-  .then((res) => res.data as PokemonList)
-  .then((data: PokemonList) => {
-    console.log(data.results[0].url);
-    axios
-      .get(data.results[0].url)
-      .then((res) => res.data as Pokemon)
-      .then((data: Pokemon) => console.log(data.stats));
-  })
-  .catch((err) => {
-      console.error(err);
-  });
+const getPokemonList = async (): Promise<PokemonList> => {
+  const listResp = await axios.get("https://pokeapi.co/api/v2/pokemon")
+    return listResp.data as PokemonList;
+}
+
+const getPokemon = async (url: string): Promise<Pokemon> => {
+  const dataResp = await axios.get(url) // data.results[0].url
+  return dataResp.data as Pokemon;
+}
+
+(async function () {
+  try {
+    const list = await getPokemonList();
+    const pokemon = await getPokemon(list.results[0].url)
+    console.log(pokemon.name)
+  } catch (e) {
+    console.error(e);
+  }
+})();
+
+// .then((res: any) => res.data as Pokemon)
+//   .then((data: Pokemon) => console.log(data.stats));
 
 // console.log("typescript works")
