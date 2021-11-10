@@ -35,10 +35,21 @@ const getPokemon = async (url: string): Promise<Pokemon> => {
   return dataResp.data as Pokemon;
 }
 
+const getFirstPokemon = async (): Promise<Pokemon> =>
+  new Promise(async (resolve, reject) => {
+    try {
+    const list = await getPokemonList();
+    resolve( await getPokemon(list.results[0].url))
+    } catch (error) {
+      reject(error)
+    }
+  });
+
 (async function () {
   try {
-    const list = await getPokemonList();
-    const pokemon = await getPokemon(list.results[0].url)
+    // const list = await getPokemonList();
+    // const pokemon = await getPokemon(list.results[0].url)
+    const pokemon = await getFirstPokemon()
     console.log(pokemon.name)
   } catch (e) {
     console.error(e);
