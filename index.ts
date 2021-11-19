@@ -38,6 +38,7 @@ const getPokemon = async (url: string): Promise<Pokemon> => {
 const getFirstPokemon = async (): Promise<Pokemon> =>
   new Promise(async (resolve, reject) => {
     try {
+      console.log('Getting the list')
     const list = await getPokemonList();
     resolve( await getPokemon(list.results[0].url))
     } catch (error) {
@@ -49,8 +50,12 @@ const getFirstPokemon = async (): Promise<Pokemon> =>
   try {
     // const list = await getPokemonList();
     // const pokemon = await getPokemon(list.results[0].url)
-    const pokemon = await getFirstPokemon()
+    const pokemonPromise = getFirstPokemon()
+
+    const pokemon = await pokemonPromise
     console.log(pokemon.name)
+    const pokemon2 = await pokemonPromise
+    console.log(pokemon2.name)
   } catch (e) {
     console.error(e);
   }
