@@ -1,6 +1,7 @@
 // fetch = require('node-fetch');
 // import fetch from "node-fetch"
 import axios from "axios";
+import PromisePool from "@supercharge/promise-pool/dist";
 
 console.log("INSIDE NPX")
 
@@ -52,10 +53,20 @@ const getFirstPokemon = async (): Promise<Pokemon> =>
   try {
     const list = await getPokemonList();
     // console.log(list)
-    // REDUCE PATTERN
+    const { results, errors } = await PromisePool
+      .withConcurrency(10)
+      .for(list.results)
+      .process(async (data, index, pool) => {
+        return await getPokemon(data.url)
+      })
+
+    console.log(results.map(p => p.name));
+    
+    /* REDUCE PATTERN
     const data = await Promise.all(list.results.slice(0,5).map( (pokemon) => getPokemon(pokemon.url)));
     console.log(data)
     console.log('>>> DONE')
+    */
 
     /*
     list.results.reduce<Promise<unknown>>(async (pr, pokemon) => {
