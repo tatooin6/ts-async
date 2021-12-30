@@ -51,12 +51,27 @@ const getFirstPokemon = async (): Promise<Pokemon> =>
 (async function () {
   try {
     const list = await getPokemonList();
-    console.log("THIS is the list");
-    console.log(list)
-    list.results.slice(0,3).forEach(async (listItem) => {
+    // console.log(list)
+    // REDUCE PATTERN
+    list.results.reduce<Promise<unknown>>(async (pr, pokemon) => {
+      await pr;
+      return getPokemon(pokemon.url).then((p) => {console.log(p.name)})
+    }, Promise.resolve(undefined))
+
+    /*
+     * FOR LOOP IS COMPATIBLE WITH ASYNC AWAIT AS A SIMPLE SOLUTION
+    for (const listItem of list.results) {
         const pokemon = await getPokemon(listItem.url)
         console.log(pokemon.name)
-    })
+    }
+    */
+
+    /*
+     * FOREACH IS INCOPATIBLE WITH ASYNC AWAIT
+     * list.results.slice(0,3).forEach(async (listItem) => {
+        const pokemon = await getPokemon(listItem.url)
+        console.log(pokemon.name)
+    })*/
   } catch (e) {
     console.error(e);
   }
