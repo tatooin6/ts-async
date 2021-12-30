@@ -53,10 +53,16 @@ const getFirstPokemon = async (): Promise<Pokemon> =>
     const list = await getPokemonList();
     // console.log(list)
     // REDUCE PATTERN
+    const data = await Promise.all(list.results.slice(0,5).map( (pokemon) => getPokemon(pokemon.url)));
+    console.log(data)
+    console.log('>>> DONE')
+
+    /*
     list.results.reduce<Promise<unknown>>(async (pr, pokemon) => {
       await pr;
       return getPokemon(pokemon.url).then((p) => {console.log(p.name)})
     }, Promise.resolve(undefined))
+    */
 
     /*
      * FOR LOOP IS COMPATIBLE WITH ASYNC AWAIT AS A SIMPLE SOLUTION
