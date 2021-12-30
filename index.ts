@@ -2,6 +2,8 @@
 // import fetch from "node-fetch"
 import axios from "axios";
 
+console.log("INSIDE NPX")
+
 export interface PokemonList {
   count: number;
   next: string;
@@ -48,20 +50,15 @@ const getFirstPokemon = async (): Promise<Pokemon> =>
 
 (async function () {
   try {
-    // const list = await getPokemonList();
-    // const pokemon = await getPokemon(list.results[0].url)
-    const pokemonPromise = getFirstPokemon()
-
-    const pokemon = await pokemonPromise
-    console.log(pokemon.name)
-    const pokemon2 = await pokemonPromise
-    console.log(pokemon2.name)
+    const list = await getPokemonList();
+    console.log("THIS is the list");
+    console.log(list)
+    list.results.slice(0,3).forEach(async (listItem) => {
+        const pokemon = await getPokemon(listItem.url)
+        console.log(pokemon.name)
+    })
   } catch (e) {
     console.error(e);
   }
 })();
 
-// .then((res: any) => res.data as Pokemon)
-//   .then((data: Pokemon) => console.log(data.stats));
-
-// console.log("typescript works")
