@@ -1,3 +1,4 @@
 Starting promises   https://youtu.be/VcOMq3LQtBU?t=421
 error handling      https://youtu.be/VcOMq3LQtBU?t=730
 Async looping       https://youtu.be/VcOMq3LQtBU?t=1105
+Promise Pooling     https://youtu.be/VcOMq3LQtBU?t=1454
