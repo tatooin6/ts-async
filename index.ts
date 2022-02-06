@@ -62,33 +62,13 @@ const getFirstPokemon = async (): Promise<Pokemon> =>
 
     console.log(results.map(p => p.name));
     
-    /* REDUCE PATTERN
-    const data = await Promise.all(list.results.slice(0,5).map( (pokemon) => getPokemon(pokemon.url)));
-    console.log(data)
-    console.log('>>> DONE')
-    */
+    /* REDUCE PATTERN */
 
-    /*
-    list.results.reduce<Promise<unknown>>(async (pr, pokemon) => {
-      await pr;
-      return getPokemon(pokemon.url).then((p) => {console.log(p.name)})
-    }, Promise.resolve(undefined))
-    */
+    /* USING REDUCER */
 
-    /*
-     * FOR LOOP IS COMPATIBLE WITH ASYNC AWAIT AS A SIMPLE SOLUTION
-    for (const listItem of list.results) {
-        const pokemon = await getPokemon(listItem.url)
-        console.log(pokemon.name)
-    }
-    */
+    /* FOR LOOP IS COMPATIBLE WITH ASYNC AWAIT AS A SIMPLE SOLUTION */
 
-    /*
-     * FOREACH IS INCOPATIBLE WITH ASYNC AWAIT
-     * list.results.slice(0,3).forEach(async (listItem) => {
-        const pokemon = await getPokemon(listItem.url)
-        console.log(pokemon.name)
-    })*/
+    /* FOREACH IS INCOPATIBLE WITH ASYNC AWAIT */
   } catch (e) {
     console.error(e);
   }
