@@ -47,3 +47,21 @@ FOREACH IS INCOPATIBLE WITH ASYNC AWAIT
         console.log(pokemon.name)
     })
 ```
+
+### Jest configuration
+
+Jest Dependencies
+```cmd
+yarn add ts-jest jest -D
+yarn add @types/jest -D
+```
+
+Configuring the environment
+```cmd
+npx ts-jest config:init
+```
+
+Run
+```cmd
+yarn test
+```
