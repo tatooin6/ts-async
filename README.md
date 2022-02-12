@@ -65,3 +65,10 @@ Run
 ```cmd
 yarn test
 ```
+
+### CallBacks run
+
+Run
+```cmd
+npx ts-node callbacks.ts
+```
